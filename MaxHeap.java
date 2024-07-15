@@ -7,23 +7,29 @@ import static org.junit.Assert.*;
 
 
 /**
- * 
- *
+ * Name: Rahul Champaneria
+ * Student ID: 017313296
  */
 public class MaxHeap {
 
-    private int[] HeapArray; 
+    //Initializing an Integer array called HeapArray
+    private int[] HeapArray;
+
+    //a function that returns the HeapArray
     public int[] getHeapArray() {
 		return HeapArray;
 	}
 
+    //initializing a private intergers size and maxsize
 	private int size; 
     private int maxsize; 
-  
+
+    //a final int called FRONT to set the front value in the HeapArray
     private static final int FRONT = 1; 
-  
+
+    //MaxHeap default function
     public MaxHeap(int maxsize) 
-    { 
+    {
         this.maxsize = maxsize; 
         this.size = maxsize;
         HeapArray = new int[maxsize]; 
@@ -55,12 +61,14 @@ public class MaxHeap {
     //Function to heapify the node at position i, up to the position n 
     private void maxHeapify(int i, int n) 
     {
-        /**
-         * TODO implement these as shown in class.
-         */
+        //setting the value of the nodes through heapify method for right and left nodes
         int left = leftChild(i);
         int right = rightChild(i);
+
+        //setting the current largest value of the method
         int largest = i;
+
+        //the heapify method to compare left and right nodes
         if(left < n && HeapArray[left] > HeapArray[largest]){
             largest = left;
         }
@@ -68,26 +76,22 @@ public class MaxHeap {
             largest = right;
         }
 
+        //if the largest value is not the same as i, swap the values and recursively call maxHeapify
         if(largest != i){
             swap(i, largest);
             maxHeapify(largest, n);
         }
     }
 
-    
+    //building a MaxHeap using the recursive method for maxHeapify
     public void buildMaxHeap() {
-        /**
-         * TODO implement these as shown in class.
-         */
         for(int i = (size/2)-1; i >= 0; i--){
             maxHeapify(i,size);
         }
     }
 
+    //Sorting the heap using the buildMaxHeap function and then using maxHeapify to sort the heap
     public void sort() {
-        /**
-         * TODO implement these as shown in class.
-         */
         buildMaxHeap();
         for(int i  = size-1; i >=1; i--){
             swap(0, i);

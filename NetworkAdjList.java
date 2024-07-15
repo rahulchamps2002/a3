@@ -1,7 +1,6 @@
 package a3;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import static org.junit.Assert.assertEquals;
@@ -14,26 +13,39 @@ import java.util.Set;
  * This class is used for undirected graphs represented as adjacency lists
  * @author andreopo
  *
+ * Name: Rahul Champaneria
+ * Student ID: 017313296
  */
 
 public class NetworkAdjList {
 
+	//Node list of adjacencyList
 	private static Node[] adjacencyList;
-	
+
+	//a function to create an Adjacency List
 	public static void createAdjacencyList() {
-		adjacencyList = new Node[5000]; // Ensure the array size is large enough for the highest node index
+		// Ensure the array size is large enough for the highest node index
+		adjacencyList = new Node[5000];
+		//create a HashSet to store nodes that are connected
 		Set<Integer> nodeSet = new HashSet<>();
 
+		//using a file reader to read through the 3980.edges and utilize the file
 		try (BufferedReader br = new BufferedReader(new FileReader("3980.edges"))) {
+			//intializing a string called line
 			String line;
+			//while loop that takes the string line and reads a part of the file 3980.edges and checks if it is null
 			while ((line = br.readLine()) != null) {
+				//splitting the string line and putting them into a String array called parts
 				String[] parts = line.split(" ");
+				//converting the parts strings into integers
 				int node1 = Integer.parseInt(parts[0]);
 				int node2 = Integer.parseInt(parts[1]);
 
+				//adding the converted parts to the Node HashSet
 				nodeSet.add(node1);
 				nodeSet.add(node2);
 
+				//calling the addEdges function twice since it is an undirected graph
 				addEdges(node1, node2);
 				addEdges(node2, node1);
 			}
@@ -49,12 +61,14 @@ public class NetworkAdjList {
 		}
     }
 
+	//a function to add nodes to an adjacency list
 	private static void addEdges(int from, int to){
 		Node newNode = new Node(to);
 		newNode.setNext(adjacencyList[from]);
 		adjacencyList[from] = newNode;
 	}
-	
+
+	//this function checks whether or not two nodes are "friends" (neighbors)
 	public static boolean areFriends(int A, int B) {
 		Node node = adjacencyList[A];
 		while (node != null) {
